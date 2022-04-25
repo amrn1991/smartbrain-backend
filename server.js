@@ -2,21 +2,21 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const knex = require('knex');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 const { handleRegister } = require('./controllers/register');
 const { handleSignin } = require('./controllers/signin');
 const { handleProfileGet } = require('./controllers/profile');
 const { handleImage, handleApiCall } = require('./controllers/image');
 
-dotenv.config()
+dotenv.config();
 
 const db = knex({
   client: 'pg',
   connection: {
     connectionString: process.env.DATABASE_URL,
     ssl: {
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   },
 });
 
@@ -26,10 +26,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-  // db.select('*')
-  //   .from('users')
-  //   .then((data) => res.json(data));
-  res.send('hello');
+  db.select('*')
+    .from('users')
+    .then((data) => res.json(data));
 });
 app.get('/profile/:id', (req, res) => handleProfileGet(req, res, db));
 app.post('/signin', (req, res) => handleSignin(req, res, bcrypt, db));
