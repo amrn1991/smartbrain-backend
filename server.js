@@ -16,20 +16,15 @@ const db = knex({
 });
 
 const app = express();
-app.use(
-  cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'DELETE', 'PUT'],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
-  db.select('*')
-    .from('users')
-    .then((data) => res.json(data));
+  // db.select('*')
+  //   .from('users')
+  //   .then((data) => res.json(data));
+  res.send('hello');
 });
 app.get('/profile/:id', (req, res) => handleProfileGet(req, res, db));
 app.post('/signin', (req, res) => handleSignin(req, res, bcrypt, db));
