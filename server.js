@@ -36,4 +36,6 @@ app.post('/register', (req, res) => handleRegister(req, res, bcrypt, db));
 app.post('/imageUrl', (req, res) => handleApiCall(req, res));
 app.put('/image', (req, res) => handleImage(req, res, db));
 
-app.listen(3001, () => console.log('app is running on port 3001...'));
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => console.log(`app is running on port ${port}`));
