@@ -16,15 +16,15 @@ const db = knex({
 });
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ['https://smart-face-detector.netlify.app'],
+    origin: '*',
+    methods: ['GET', 'POST', 'DELETE', 'PUT'],
     credentials: true,
-    origin: true,
   })
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
   db.select('*')
